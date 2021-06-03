@@ -1,3 +1,62 @@
+# ADPI backend
+
+This is an API I made in Laravel 8 as part of an assessment for ADPI. It has three endpoints that can be used to request data from an external API (tronaddump.io). It stores some of the response values to a database table called trump_quotes.
+
+I created PHP class ApiConnector in app/Classes/ApiConnector.php. This class can be used to set up Guzzle as Http client and make POST or GET request with most of the options one may find useful.
+
+The ApiConnector is extended by PHP class TronaldDump in app/Classes/TronaldDump.php. Here, the different requests we'd like to make to the external API are represented by class methods. There is also a method that saves the quote id, tag and quote value from the response data to a trump_quotes table in the database, for which a migration has to be run.
+
+The migration is found in the database/migrations directory.
+
+Three endpoints are set up routes/api.php. They call the request methods in TronaldDump directly, to forward the full JSON responses of the external API to their caller.
+
+## Prerequisites
+
+- PHP 7.3+
+- Composer 2.0
+- MySQL, MariaDB or PostgreSQL
+- Command Line Tools
+- Git
+
+## Installation
+
+### Clone the repository
+
+Make sure you have git installed on your system (run git --version). You can follow the steps at https://git-scm.com/book/en/v2/Getting-Started-Installing-Git to install git. Then run:
+
+    git clone https://github.com/Spesm/adpi-backend.git
+
+You could also use Github Desktop
+
+### Switch to the repo folder
+
+For example:
+
+    cd adpi-backend
+
+### Install dependencies using Composer
+
+Make sure you have Composer installed (run composer --version). You can follow the steps at https://getcomposer.org/download/ to install Composer. Then run:
+
+    composer install
+
+### Copy .env.example to .env and make the necessary configuration changes for your system
+
+    cp .env.example .env
+
+### Run migrations
+
+Make sure you have configured a connection with a relational database that is running on your system. Then run:
+
+    php artisan migrate
+
+### Start the Laravel development server
+
+    php artisan serve
+
+The server should now be accessible at http://127.0.0.1:8000, unless specified differently.
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
